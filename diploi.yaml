@@ -1,0 +1,79 @@
+diploiVersion: v1.0
+type: component
+name: Devpod Test Component
+description: A test devpod component for Diploi.
+
+contexts:
+  - name: app
+    identifier: app
+
+parameterGroups:
+  - name: Test Component
+    identifier: testi-component
+    toggleable: false
+    description: Test Component info
+    defaultValue: TRUE
+    parameters:
+      - name: String
+        identifier: TEST_STRING
+        defaultValue: test
+        type: string
+
+environmentVariables:
+  - identifier: SUBTITLE
+    defaultValue: This text comes from an environment variable
+    type: string
+    contexts: label=app
+
+hosts:
+  - name: Component
+    identifier: component
+    urlFormat: '[label].[default-domain]'
+
+editors:
+  - name: App
+    identifier: app
+    service: app
+    port: 3001
+    stages:
+      - development
+ssh:
+  - usernameFormat: '[label]'
+    contexts: label=app
+    stages:
+      - development
+  - usernameFormat: '[label]-[index]'
+    contexts: label=app
+    stages:
+      - production
+  - usernameFormat: '[label]'
+    contexts: label=app
+    stages:
+      - staging
+logs:
+  - identifier: component-log
+    name: Component Log
+    labelSelector: app=app
+    command: tail -n 2000 -F /var/log/component.log
+
+images:
+  - identifier: app
+    repository: app
+    dockerfile: Dockerfile
+    image: ghcr.io/nemesysltd/diploi-nextjs-psql-template
+    initialProjectImage: ghcr.io/diploi/nextjs-postgresql-template-initial-project
+    stages:
+      - development
+      - production
+      - staging
+    manualBuildStages:
+      - development
+
+storage:
+  - identifier: app
+    stages:
+      - development
+    sizeMiB: 6144
+
+status:
+  url: http://app:3000/status
