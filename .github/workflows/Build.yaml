@@ -25,7 +25,7 @@ jobs:
         with:
           push: true
           platforms: linux/arm64
-          #tags: ghcr.io/marcusahlfors/node-estargz:original
+          tags: ghcr.io/Munkkeli/diploi-devpod-test:latest
           #outputs: type=oci,compression=estargz,force-compression=true
-          #type=oci,dest=image.tar,compression=estargz,force-compression=true -t ghcr.io/marcusahlfors/node-estargz:latest .
+          #type=oci,dest=image.tar,compression=estargz,force-compression=true -t ghcr.io/Munkkeli/diploi-devpod-test:latest .
           #outputs: type=image,name=target,annotation-index.org.opencontainers.image.description=My multi-arch image
