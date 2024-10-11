@@ -1,0 +1,31 @@
+name: Build
+
+on:
+  push:
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 'Login to GitHub Container Registry'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{github.actor}}
+          password: ${{secrets.GITHUB_TOKEN}}
+          
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          platforms: linux/arm64
+          #tags: ghcr.io/marcusahlfors/node-estargz:original
+          #outputs: type=oci,compression=estargz,force-compression=true
+          #type=oci,dest=image.tar,compression=estargz,force-compression=true -t ghcr.io/marcusahlfors/node-estargz:latest .
+          #outputs: type=image,name=target,annotation-index.org.opencontainers.image.description=My multi-arch image
