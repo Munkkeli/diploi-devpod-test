@@ -4,6 +4,7 @@ metadata:
   name: ingress
   annotations:
     kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.middlewares: diploi-editor-auth@kubernetescrd
 spec:
   tls:
     - hosts:
@@ -19,4 +20,4 @@ spec:
               service:
                 name: devpod
                 port:
-                  number: 80
+                  number: 3001

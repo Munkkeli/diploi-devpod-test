@@ -4,8 +4,10 @@ metadata:
   name: devpod
 spec:
   ports:
+    # TODO: remove?
     - port: 80
       name: app
+    # TODO: remove?
     - port: 3000
       name: status
     - port: 3001
