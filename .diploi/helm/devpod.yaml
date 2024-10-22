@@ -66,10 +66,10 @@ spec:
       volumes:
         - name: app-mount
           hostPath:
-            path: {{ .Values.storage.dev.hostPath }}/app
+            path: {{ .Values.storage.dev.hostPath }}
         - name: root-mount
           hostPath:
-            path: {{ .Values.storage.dev.hostPath }}/root
+            path: {{ .Values.storage.devroot.hostPath }}
         - name: ssh-keys
           secret:
             secretName: ssh-keys
