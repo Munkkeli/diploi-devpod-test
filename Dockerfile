@@ -10,6 +10,11 @@ RUN apt-get update && apt-get install -y nano supervisor openssh-server git bash
 # Install PostgreSQL client
 RUN apt-get install -y postgresql-client
 
+RUN groupadd -g 1000 user && \
+    useradd -m -u 1000 -g 1000 -s /bin/bash user && \
+    mkdir -p /home/user && \
+    chown -R user:user /home/user
+
 # SSH keys and some login related stuff (some work only for prod)
 RUN mkdir -p /run/sshd /root/.ssh \
   && chmod 0700 /root/.ssh \
