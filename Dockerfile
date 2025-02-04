@@ -5,15 +5,11 @@ FROM node:20.18.0-slim
 # repository will be mounted in the repository folder.
 
 # Update basic packages
-RUN apt-get update && apt-get install -y nano supervisor openssh-server git bash wget curl locales libc6 libstdc++6 python-is-python3 ca-certificates tar netcat-openbsd
+RUN apt-get update && apt-get install -y nano supervisor openssh-server git bash wget curl locales libc6 libstdc++6 python-is-python3 ca-certificates tar netcat-openbsd \
+    postgresql-client sudo
 
-# Install PostgreSQL client
-RUN apt-get install -y postgresql-client
-
-#RUN groupadd -g 1000 user && \
-#    useradd -m -u 1000 -g 1000 -s /bin/bash user && \
-#    mkdir -p /home/user && \
-#    chown -R user:user /home/user
+# Add node to sudoers
+RUN echo "node ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # SSH keys and some login related stuff (some work only for prod)
 RUN mkdir -p /run/sshd /root/.ssh \
